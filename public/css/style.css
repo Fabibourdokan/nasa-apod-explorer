@@ -1,0 +1,37 @@
+html {
+  color-scheme: dark;
+}
+
+body {
+  display: flex;
+  min-height: 100vh;
+  flex-direction: column;
+  margin: 0;
+  background: #0b1022;
+  color: #f2f5ff;
+  font: 1rem/1.6 system-ui, sans-serif;
+}
+
+header,
+main,
+footer {
+  box-sizing: border-box;
+  width: min(100%, 68rem);
+  margin-inline: auto;
+  padding: 1rem;
+}
+
+h1 {
+  margin: 0;
+  color: #b7caff;
+  font-size: clamp(1.5rem, 5vw, 2.5rem);
+  line-height: 1.2;
+}
+
+main {
+  flex: 1;
+}
+
+footer {
+  color: #d5c7fa;
+}

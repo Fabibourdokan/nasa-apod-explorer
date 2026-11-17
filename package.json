@@ -1,0 +1,17 @@
+{
+  "name": "nasa-apod-explorador",
+  "version": "0.1.0",
+  "private": true,
+  "description": "Explorador acadêmico do Astronomy Picture of the Day da NASA",
+  "type": "commonjs",
+  "scripts": {
+    "start": "node src/server.js"
+  },
+  "engines": {
+    "node": ">=24"
+  },
+  "dependencies": {
+    "dotenv": "^18.0.10",
+    "express": "^5.2.1"
+  }
+}

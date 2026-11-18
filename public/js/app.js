@@ -57,6 +57,14 @@ function isEmbeddable(url) {
   return url.origin === 'https://player.vimeo.com' && /^\/video\/\d+\/?$/.test(url.pathname);
 }
 
+function mediaLink(url, label) {
+  const link = document.createElement('a');
+  link.href = url.href;
+  link.rel = 'noreferrer';
+  link.textContent = label;
+  return link;
+}
+
 function showMediaFallback(url) {
   const fallback = document.createElement('div');
   fallback.className = 'media-fallback';
@@ -64,11 +72,7 @@ function showMediaFallback(url) {
   message.textContent = 'Mídia indisponível para visualização nesta página.';
   fallback.append(message);
   if (url) {
-    const link = document.createElement('a');
-    link.href = url.href;
-    link.rel = 'noreferrer';
-    link.textContent = 'Abrir a publicação ou mídia original';
-    fallback.append(link);
+    fallback.append(mediaLink(url, 'Abrir a publicação ou mídia original'));
   }
   media.replaceChildren(fallback);
 }
@@ -86,6 +90,11 @@ function renderMedia(apod) {
       if (media.contains(image)) showMediaFallback(url);
     }, { once: true });
     media.replaceChildren(image);
+    if (url && url.href !== imageUrl.href) {
+      const link = mediaLink(url, 'Abrir a publicação ou mídia original');
+      link.className = 'media-link';
+      media.append(link);
+    }
     image.src = imageUrl.href;
     return;
   }
@@ -97,11 +106,8 @@ function renderMedia(apod) {
     iframe.setAttribute('sandbox', 'allow-scripts allow-same-origin allow-presentation');
     iframe.allow = 'fullscreen; picture-in-picture';
     iframe.src = url.href;
-    const link = document.createElement('a');
+    const link = mediaLink(url, 'Abrir o vídeo no provedor');
     link.className = 'media-link';
-    link.href = url.href;
-    link.rel = 'noreferrer';
-    link.textContent = 'Abrir o vídeo no provedor';
     media.replaceChildren(iframe, link);
     return;
   }

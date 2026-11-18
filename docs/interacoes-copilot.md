@@ -55,6 +55,19 @@ testes ou correções pelo usuário é registrada quando relatada na conversa.
 - **Correções realizadas** — O estilo passou a limitar a mídia sem esticar a imagem. O iframe passou a usar `strict-origin-when-cross-origin` para que o YouTube receba a origem da página, com um link para abrir o vídeo no provedor. A medição de rolagem foi ajustada para considerar a largura útil da janela.
 - **Resultado** — Interface entregue com os fluxos validados em navegador com respostas simuladas. O usuário revisou o relatório e autorizou o quarto commit após a conferência final.
 
+## Interação 5
+
+- **Data** — 17/11/2026.
+- **Assistente** — Codex. As interações 1 a 4 também ocorreram com o Codex, conforme o registro.
+- **Etapa** — 5, revisão final e documentação.
+- **Prompt (trecho)** — “Agora precisamos finalizar o projeto acadêmico, garantindo que todos os requisitos do enunciado sejam atendidos.” O pedido inclui rever a interface, repetir testes reais, conferir a segurança e preparar o README.
+- **Análise** — O Codex revisou as instruções, a estrutura, o histórico e os fluxos de imagem, vídeo e erro. Comparou o tipo devolvido pela API com o tipo de conteúdo anunciado pela página oficial de vídeo.
+- **Implementação e decisões** — Criou o `README.md` e passou a mostrar o link para a publicação original ao lado da imagem quando o endereço é diferente do arquivo de mídia. Manteve a classificação fornecida pela API, a lista de origens permitidas para iframe, o contrato do backend e os limites de 15 segundos no servidor e 20 no navegador.
+- **Testes locais e simulados** — Passaram 17 verificações HTTP locais com a NASA simulada e as verificações de sintaxe e credenciais. No Edge, foram confirmados o fluxo automático e histórico, metadados, imagem, montagem do iframe, link original, data inválida, carregamento, erros, timeout, nova tentativa, retorno ao dia atual e navegação por teclado. O título ficou visível sem rolagem horizontal a 320, 390, 768 e 1440 px. O seletor confirmou o intervalo de 16/06/1995 até hoje e bloqueou uma data futura.
+- **Consultas reais** — Pelo Express, o APOD atual retornou HTTP 504. A imagem de 01/10/2014 retornou 502 e depois 504, e as datas de vídeo de 04/12/2022 e 30/06/2024 retornaram 504. A consulta direta à API para 04/12/2022 retornou HTTP 200 com `media_type: image`, embora o acervo oficial descreva a publicação como vídeo. A reprodução externa e uma resposta de sucesso pelo Express não foram confirmadas nesta rodada.
+- **Resultado** — Revisão e documentação entregues. O usuário revisou o relatório e autorizou o quinto commit. A publicação dos arquivos finais aguarda autorização.
+
+
 ## Modelo para novas interações
 
 - **Número** —

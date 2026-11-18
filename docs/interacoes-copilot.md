@@ -26,6 +26,23 @@ testes ou correções pelo usuário é registrada quando relatada na conversa.
 - **Correções relatadas pelo usuário** — Nenhuma relatada na revisão do relatório.
 - **Resultado** — Relatório revisado e commit da estrutura inicial autorizado, condicionado à conferência dos arquivos e à ausência de segredos.
 
+## Interação 3
+
+- **Data** — 17/11/2026.
+- **Etapa** — 3, integração segura com a NASA.
+- **Prompt (trecho)** — “Agora implemente a integração segura do backend com a API APOD da NASA.” O pedido inclui validação de data, proteção da chave, tratamento de falhas, testes do endpoint e revisão antes do commit.
+- **Resposta do Codex** — Adicionou `GET /api/apod`, separou a validação da consulta externa e limitou o JSON aos campos solicitados. Configurou timeout de 8 segundos e mensagens de erro locais.
+- **Arquivos envolvidos** — `src/server.js`, `src/routes/apodRoutes.js`, `src/services/nasaService.js` e este registro.
+- **Testes executados pelo Codex** — 26 verificações HTTP com respostas da NASA simuladas, incluindo imagem, vídeo, datas válidas e inválidas, chave ausente, falha de rede, timeout, respostas inválidas, filtragem de segredos e arquivos estáticos. Também foram confirmadas seis respostas HTTP ao iniciar `src/server.js` com a chave vazia. A consulta à NASA com chave real ficou para os retestes.
+- **Correções realizadas** — O primeiro teste de inicialização tentou consultar o servidor antes de confirmar que estava pronto. A repetição aguardou o aviso de escuta e passou. Nenhuma correção foi relatada pelo usuário durante esta interação.
+- **Revisão do usuário** — Em 17/11/2026, o usuário iniciou o Express e relatou a mensagem de indisponibilidade ao consultar 2014-10-01.
+- **Diagnóstico e correção** — O arquivo `.env` estava ausente e a variável `NASA_API_KEY` não estava definida no processo. O dotenv indicou `ENOENT`; um arquivo temporário com valor fictício confirmou o carregamento. O servidor passou a avisar no terminal quando a configuração está ausente, sem registrar seu valor. O HTTP 503 local ocorre antes da chamada externa.
+- **Reteste** — Uma resposta simulada no formato publicado pela NASA passou pela normalização. A rota retornou HTTP 200 com e sem `utm_source`, sem encaminhar esse parâmetro. Com a credencial pública de demonstração, a consulta direta via Node.js excedeu 8 segundos e o Express retornou HTTP 504 com e sem `utm_source`. Em outra tentativa, o curl completou DNS, TCP e TLS e recebeu HTTP 503 do serviço externo em cerca de 2,25 segundos. Nesse reteste ainda não houve resposta real de sucesso.
+- **Reteste com configuração local** — O dotenv carregou o arquivo `.env`, a variável estava preenchida e o Git ignorava o arquivo. A consulta autenticada usou o endpoint oficial e a data de 2014-10-01. O DNS retornou IPv4 e IPv6 e não havia variáveis de proxy HTTP no processo de teste.
+- **Diagnóstico do timeout** — O curl recebeu HTTP 200 com IPv4 e IPv6, em cerca de 7,21 segundos, com TLS validado, e HTTP 503 em uma tentativa automática. O cliente HTTPS do Node.js completou DNS, TCP e TLS nas duas famílias, mas algumas chamadas ficaram sem resposta até 15 segundos. Uma tentativa diagnóstica com `fetch` recebeu HTTP 503 em cerca de 8,97 segundos. Os resultados apontam para intermitência após o estabelecimento da conexão.
+- **Ajuste e reteste final** — O limite passou de 8 para 15 segundos. Pelo Express, uma consulta real retornou HTTP 504 em 15,07 segundos e a seguinte retornou HTTP 200 em 1,66 segundo, com imagem de 2014-10-01 e os seis campos esperados. Onze verificações simuladas passaram, incluindo validação de datas, chave ausente, imagem, vídeo, erros externos e timeout. A verificação TLS permaneceu habilitada.
+- **Resultado** — Consulta real confirmada, com intermitência externa ainda observada. O usuário revisou o relatório e autorizou o terceiro commit.
+
 ## Modelo para novas interações
 
 - **Número** —

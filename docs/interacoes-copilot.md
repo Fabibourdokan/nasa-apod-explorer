@@ -43,6 +43,18 @@ testes ou correções pelo usuário é registrada quando relatada na conversa.
 - **Ajuste e reteste final** — O limite passou de 8 para 15 segundos. Pelo Express, uma consulta real retornou HTTP 504 em 15,07 segundos e a seguinte retornou HTTP 200 em 1,66 segundo, com imagem de 2014-10-01 e os seis campos esperados. Onze verificações simuladas passaram, incluindo validação de datas, chave ausente, imagem, vídeo, erros externos e timeout. A verificação TLS permaneceu habilitada.
 - **Resultado** — Consulta real confirmada, com intermitência externa ainda observada. O usuário revisou o relatório e autorizou o terceiro commit.
 
+## Interação 4
+
+- **Data** — 17/11/2026.
+- **Etapa** — 4, interface responsiva e interativa.
+- **Prompt (trecho)** — “Agora quero desenvolver uma interface web completa, moderna, responsiva e funcional.” O pedido inclui consultas do dia e por data, exibição segura de mídia, tratamento de falhas, acessibilidade e revisão antes do commit.
+- **Resposta do Codex** — Implementou a interface com HTML, CSS e JavaScript, consulta pelo endpoint interno, renderização com `textContent`, validação do formulário, estados de carregamento e erro e opção de tentar novamente. O iframe fica restrito a endereços de incorporação permitidos do YouTube e Vimeo.
+- **Arquivos envolvidos** — `public/index.html`, `public/css/style.css`, `public/js/app.js` e este registro.
+- **Testes simulados no Edge** — Consulta automática e histórica, imagem carregada, criação de iframe e alternativa para mídia indisponível, carregamento, data inválida sem consulta, falha de conexão, HTTP 504, timeout do navegador, nova tentativa e retorno ao APOD de hoje. Também foram conferidos Tab, foco visível, movimento reduzido, ausência de credenciais nas URLs da API e ausência de rolagem horizontal a 320, 390, 768 e 1440 px. A montagem do iframe foi testada com mídia simulada.
+- **Testes reais pelo Express** — Página, CSS e JavaScript retornaram HTTP 200. Uma data impossível retornou HTTP 400 e `/.env` retornou HTTP 404. As consultas reais do dia e de 2014-10-01 retornaram HTTP 504 nesta rodada, sem expor a chave. A renderização de uma resposta real de sucesso e a reprodução de vídeo externo permanecem sem confirmação nesta etapa.
+- **Correções realizadas** — O estilo passou a limitar a mídia sem esticar a imagem. O iframe passou a usar `strict-origin-when-cross-origin` para que o YouTube receba a origem da página, com um link para abrir o vídeo no provedor. A medição de rolagem foi ajustada para considerar a largura útil da janela.
+- **Resultado** — Interface entregue com os fluxos validados em navegador com respostas simuladas. O usuário revisou o relatório e autorizou o quarto commit após a conferência final.
+
 ## Modelo para novas interações
 
 - **Número** —

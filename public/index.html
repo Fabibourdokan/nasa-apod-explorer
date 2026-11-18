@@ -3,19 +3,64 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>NASA APOD — Explorador do Universo</title>
+  <title>NASA APOD Explorer — Explorador do Universo</title>
   <link rel="stylesheet" href="/css/style.css">
   <script type="module" src="/js/app.js"></script>
 </head>
 <body>
-  <header>
-    <h1>NASA APOD — Explorador do Universo</h1>
+  <a class="skip-link" href="#conteudo">Ir para o conteúdo</a>
+  <header class="site-header">
+    <div class="container brand">
+      <span class="brand-mark" aria-hidden="true">✦</span>
+      <span>NASA APOD <strong>Explorer</strong></span>
+    </div>
   </header>
-  <main>
-    <p>Explore imagens e vídeos astronômicos publicados no Astronomy Picture of the Day.</p>
+
+  <main class="container" id="conteudo">
+    <section class="hero" aria-labelledby="welcome">
+      <p class="eyebrow">Astronomy Picture of the Day</p>
+      <h1 id="welcome">Bem-vindo ao<br> <span>Explorador do Universo</span></h1>
+      <p class="intro">Descubra imagens e vídeos astronômicos publicados pela NASA. Explore o céu de hoje ou escolha uma data no acervo.</p>
+
+      <form class="search" id="search" novalidate>
+        <div class="field">
+          <label for="date">Data da publicação</label>
+          <input id="date" name="date" type="date" min="1995-06-16" required aria-describedby="date-help">
+          <small id="date-help">Acervo a partir de 16/06/1995.</small>
+        </div>
+        <div class="actions">
+          <button class="primary" type="submit">Explorar o universo</button>
+          <button class="secondary" id="today" type="button">Ver imagem de hoje</button>
+        </div>
+      </form>
+      <noscript><p>Ative o JavaScript para consultar as publicações.</p></noscript>
+    </section>
+
+    <section class="results" aria-label="Publicação astronômica">
+      <div id="status" class="status" role="status" aria-live="polite"></div>
+      <div class="notice" id="error-panel" hidden>
+        <p id="error" role="alert" aria-live="assertive"></p>
+        <button class="secondary" id="retry" type="button" hidden>Tentar novamente</button>
+      </div>
+      <article class="card" id="publication" aria-labelledby="title" hidden>
+        <div class="article-header">
+          <time id="published"></time>
+          <h2 id="title"></h2>
+        </div>
+        <div id="media" class="media"></div>
+        <div class="article-body">
+          <p id="explanation" class="explanation"></p>
+          <p id="credit" class="credit" hidden></p>
+        </div>
+      </article>
+    </section>
   </main>
-  <footer>
-    <p>Créditos ao Astronomy Picture of the Day da NASA.</p>
+
+  <footer class="site-footer">
+    <div class="container footer-content">
+      <span>NASA APOD Explorer</span>
+      <a href="https://science.nasa.gov/apod/">Acervo Astronomy Picture of the Day · NASA</a>
+    </div>
   </footer>
 </body>
 </html>
